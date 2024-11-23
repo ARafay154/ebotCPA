@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "74230643576",
+    "project_id": "emergencyapp-bd176",
+    "storage_bucket": "emergencyapp-bd176.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:74230643576:android:e2ded673d5dbeaf651668d",
+        "android_client_info": {
+          "package_name": "com.ebotcpa"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLudb6FlEffLdZHkIJ0tQF-9vThnmhF8g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
