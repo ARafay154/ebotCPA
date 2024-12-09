@@ -156,13 +156,13 @@ export async function Delete(collection, doc) {
 }
 
 
-export const signUp = async (name, email, password, contact, identification, accType) => {
+export const signUp = async (name, email, password,) => {
     try {
         // Create a new user with email and password
         const userCredential = await auth().createUserWithEmailAndPassword(email, password);
 
         // Get user information
-        const user = userCredential.user;
+        const user = userCredential?.user;
 
         // const apiData = {
         //     email:email,
@@ -180,9 +180,6 @@ export const signUp = async (name, email, password, contact, identification, acc
             uid: user?.uid,
             email: email,
             name: name,
-            contact:contact,
-            identification_number:identification,
-            accType: accType,
             createdAt: firestore.FieldValue.serverTimestamp(),
         };
 

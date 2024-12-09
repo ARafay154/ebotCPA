@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import React, { useEffect } from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { FIREBASE_COLLECTIONS, SCREENS, TABS } from '../enums/AppEnums';
+import {  FIREBASE_COLLECTIONS, SCREENS, TABS } from '../enums/AppEnums';
 import * as ui from '../screen';
 import BottomNavigation from './BottomNavigation';
 import { useDispatch, useSelector } from 'react-redux';
@@ -34,20 +34,20 @@ const RootNavigation = () => {
 
 
     return (
-
         <NavigationContainer>
             <Stack.Navigator screenOptions={{ headerShown: false }}>
                 {
-                    !user ?
+                    !user ? (
+                        // Agar user null hai (not logged in)
                         <>
-
                             <Stack.Screen name={SCREENS.SPLASH} component={ui.SplashScreen} />
                             <Stack.Screen name={SCREENS.ONBOARD_1} component={ui.OnboardingScreen1} />
                             <Stack.Screen name={SCREENS.LOGIN} component={ui.LoginScreen} />
                             <Stack.Screen name={SCREENS.SIGNUP} component={ui.SignUpScreen} />
                             <Stack.Screen name={SCREENS.FORGOT} component={ui.ForgotPasswordScreen} />
                         </>
-                        :
+                    ) : (
+                        // Agar profileComplete true hai
                         <>
                             <Stack.Screen name={TABS.TAB} component={BottomNavigation} />
                             <Stack.Screen name={SCREENS.FINANCIAL_HOME} component={ui.FinancialHome} />
@@ -78,14 +78,17 @@ const RootNavigation = () => {
                             <Stack.Screen name={SCREENS.NEW_APPOINTMENT} component={ui.NewAppointment} />
                             <Stack.Screen name={SCREENS.VIEW_PDF} component={ui.ViewPdfScreen} />
                             <Stack.Screen name={SCREENS.EDIT_PROFILE} component={ui.EditProfileScreen} />
+                            <Stack.Screen name={SCREENS.START_CASE_FILING} component={ui.StartCaseFillingScreen} />
+                            <Stack.Screen name={SCREENS.CASEFILLING_CONFIRM} component={ui.ConfirmationScreen} />
+                            <Stack.Screen name={SCREENS.PAYMENT} component={ui.PaymentScreen} />
+                            <Stack.Screen name={SCREENS.DOCUMENTS_UPLOAD} component={ui.DocumentsUploadScreen} />
+                            <Stack.Screen name={SCREENS.CALENDER} component={ui.CalenderScreen} />
                         </>
-
+                    )
                 }
-
-
             </Stack.Navigator>
         </NavigationContainer>
-    )
+    );
 }
 
 export default RootNavigation

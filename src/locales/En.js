@@ -21,7 +21,7 @@ export const En = {
     "signUp":"SignUp",
     "name":"Name",
     "identificationNumber":"Identification #",
-    "contactNo":"Contact #",
+    "contactNo":"Contact Information",
     "forgotPasswordHeading":"Forgot Password ?",
     "forgotPasswordSubText":"We will send you reset link , enter your email below.",
     "send":"Send",
@@ -54,5 +54,13 @@ export const En = {
     "enterValidEmail":"Enter valid email.",
     "passwordValidation":"Enter strong password",
     "loginSuccessfully":"Login Successfully!",
-    "ensureEnterAllFields":"Ensure enter all fields."
+    "ensureEnterAllFields":"Ensure enter all fields.",
+    "confirmPassword":"Confirm Password",
+    "accountType":"Select Account Type",
+    "individual":"Individual",
+    "business":"Business",
+    "socialSecurityNo":"Social Security No.",
+    "incomeDetails":"Income Details (in $)",
+    "complete":"Complete"
+
 }

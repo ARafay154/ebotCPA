@@ -1,24 +1,24 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
-import { Button, Input, Label, Logo, Pressable, Scrollable } from '../../components'
-import { COLOR, hp, TEXT_STYLE, wp } from '../../enums/StyleGuide'
+import { Button, CustomIcon, Input, Label, Logo, Pressable, Scrollable } from '../../components'
+import { COLOR, commonStyles, hp, TEXT_STYLE, wp } from '../../enums/StyleGuide'
 import { En } from '../../locales/En'
-import { KEYBOARD_TYPE, SCREENS } from '../../enums/AppEnums'
+import {  KEYBOARD_TYPE, SCREENS } from '../../enums/AppEnums'
 import { isEmailValid, isStrongPassword, showFlash } from '../../utils/MyUtils'
 import { signUp } from '../../services/FirebaseMethods'
 
-const SignUpScreen = ({navigation}) => {
+const SignUpScreen = ({ navigation }) => {
   const [name, setName] = useState('')
-  const [identification, setIdentification] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [contact, setContact] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
   const [loading, setLoading] = useState('')
+
 
   const minPasswordLength = 8; // Minimum password length
 
   const handleRegister = async () => {
-    if (!name || !email || !password || !contact || !identification) {
+    if (!name || !email || !password || !confirmPassword) {
       showFlash(En.allFiledsRequired, 'error')
       return
     }
@@ -35,6 +35,11 @@ const SignUpScreen = ({navigation}) => {
       return;
     }
 
+    if (password !== confirmPassword) {
+      showFlash("Password not matched");
+      return;
+    }
+
     // Validate password strength
     if (!isStrongPassword(password)) {
       showFlash(En.passwordValidation, 'error')
@@ -43,7 +48,7 @@ const SignUpScreen = ({navigation}) => {
 
     try {
       setLoading(true)
-      const response = await signUp(name, email, password, contact, identification, accType="client" )
+      const response = await signUp(name, email, password,)
       if (response) {
         navigation.navigate(SCREENS.LOGIN);
         showFlash('Account created! Please log in.');
@@ -61,7 +66,7 @@ const SignUpScreen = ({navigation}) => {
     <View style={styles.container}>
       <Logo />
       <Scrollable bounce={true} containerStyle={styles.scrollContainer}>
-        
+
         <Input
           inputLabel={En.name}
           placeholder={En.writeHere}
@@ -70,16 +75,10 @@ const SignUpScreen = ({navigation}) => {
         />
 
         <Input
-          inputLabel={En.identificationNumber}
-          placeholder={En.writeHere}
-          value={identification}
-          onChange={(e) => setIdentification(e)}
-        />
-
-        <Input
           inputLabel={En.email}
           placeholder={En.writeHere}
           value={email}
+          keyboard={KEYBOARD_TYPE.EMAIL}
           onChange={(e) => setEmail(e)}
         />
 
@@ -92,14 +91,13 @@ const SignUpScreen = ({navigation}) => {
         />
 
         <Input
-          inputLabel={En.contactNo}
+          inputLabel={En.confirmPassword}
           placeholder={En.writeHere}
-          value={contact}
-          onChange={(e) => setContact(e)}
-          keyboard={KEYBOARD_TYPE.PHONE_PAD}
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e)}
         />
 
-        <Button 
+        <Button
           text={En.signUp}
           style={styles.btnStyle}
           onPress={handleRegister}
@@ -144,5 +142,20 @@ const styles = StyleSheet.create({
     ...TEXT_STYLE.textSemiBold,
     paddingHorizontal: wp(1.5),
     marginBottom: hp(0.25)
+  },
+  accountTypeText: {
+    ...TEXT_STYLE.textSemiBold,
+    color: COLOR.darkBlue,
+    marginTop: hp(1)
+  },
+  accoutTypeView: {
+    width: "45%",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    marginVertical: hp(1.5)
+  },
+  typeSelectionText: {
+    ...TEXT_STYLE.textSemiBold
   }
 })

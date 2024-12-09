@@ -16,7 +16,7 @@ const AppointmentsScreen = ({ navigation }) => {
     if (user?.uid) {
       const unsubscribe = firestore()
         .collection(FIREBASE_COLLECTIONS.APPOINTMENTS)
-        .where('createdBy', '==', user?.uid)
+        .where('customerId', '==', user?.uid)
         .orderBy('createdAt', 'desc')
         .onSnapshot(
           (querySnapshot) => {
@@ -39,6 +39,7 @@ const AppointmentsScreen = ({ navigation }) => {
   }, [user?.uid]);
 
   const renderAppointment = ({ item }) => {
+    console.log("item",item)
     return (
       <View style={styles.card}>
         {/* Header Section */}
@@ -47,29 +48,20 @@ const AppointmentsScreen = ({ navigation }) => {
             <Label style={styles.heading}>Case Type:</Label>
             <Label style={styles.caseType}>{item.caseType}</Label>
           </View>
-          <View style={[styles.statusWrapper, { borderRadius: hp(2) }]}>
-            <Label style={styles.heading}>Status:</Label>
-            <Label style={[styles.status, styles[`status_${item?.status}`]]}>
-              {item.status}
-            </Label>
-          </View>
         </View>
 
         <View style={[styles.serviceDetailsView]}>
-          <Label style={styles.heading}>Requested Date:</Label>
-          <Label style={styles.details}>{formatDate(item?.createdAt)}</Label>
+          <Label style={styles.heading}>Appointment Date:</Label>
+          <Label style={styles.details}>{item?.appointment_date}</Label>
         </View>
 
         {/* Service Details */}
         <View style={[styles.serviceDetailsView]}>
           <Label style={styles.heading}>Service:</Label>
-          <Label style={styles.serviceName}>{item.service?.name}</Label>
+          <Label style={styles.serviceName}>{item?.service?.text}</Label>
         </View>
 
-        <View style={[styles.serviceDetailsView]}>
-          <Label style={styles.heading}>Details:</Label>
-          <Label style={styles.details}>{item.details}</Label>
-        </View>
+        <Label style={styles.amount}>{`Amount: $ ${item?.service?.price}`}</Label>
 
 
 
@@ -80,17 +72,16 @@ const AppointmentsScreen = ({ navigation }) => {
             {item.documents.map((doc, index) => (
               <Pressable
                 key={index}
-                onPress={() => navigation.navigate(SCREENS.VIEW_PDF, { doc: doc, docSecure: item?.docSecure })}
+                onPress={() => navigation.navigate(SCREENS.VIEW_PDF, { doc: doc})}
                 style={styles.documentLink}>
                 <CustomIcon name="file-open" family='MaterialIcons' size={hp(2)} />
-                <Label style={styles.documentName}>{doc.name}</Label>
+                <Label style={styles.documentName}>{doc?.name}</Label>
               </Pressable>
             ))}
           </View>
         )}
 
-        {/* Amount */}
-        <Label style={styles.amount}>{`Amount: ${item.service?.amount}`}</Label>
+       
       </View>
     );
   };
@@ -173,10 +164,10 @@ const styles = StyleSheet.create({
     color: COLOR.darkBlue,
   },
   serviceName: {
-    ...TEXT_STYLE.textSemiBold,
+    ...TEXT_STYLE.textBold,
   },
   details: {
-    ...TEXT_STYLE.textSemiBold,
+    ...TEXT_STYLE.textBold,
   },
   documents: {
     marginTop: hp(1),

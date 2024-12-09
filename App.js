@@ -6,11 +6,14 @@ import store from './src/redux/store/Store'
 import { isIOS } from './src/utils/MyUtils'
 import { COLOR } from './src/enums/StyleGuide'
 import Toast from 'react-native-toast-message'
+import { STRIPE_PUBLISHKEY } from './src/enums/AppEnums'
+import { StripeProvider } from '@stripe/stripe-react-native'
 
 const App = () => {
   return (
     
       <Provider store={store}>
+        <StripeProvider publishableKey={STRIPE_PUBLISHKEY}>
         {isIOS ?
           <SafeAreaView style={{ backgroundColor: COLOR.darkBlue }}></SafeAreaView>
           :
@@ -22,6 +25,7 @@ const App = () => {
           <RootNavigation />
           <Toast />
         </View>
+        </StripeProvider>
       </Provider>
    
   )

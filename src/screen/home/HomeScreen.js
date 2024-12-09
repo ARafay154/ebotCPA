@@ -1,40 +1,56 @@
-import { StyleSheet, View } from 'react-native'
-import React from 'react'
-import { AppHeader, Label, Logo, Photo, Pressable } from '../../components'
-import CustomIcon from '../../components/reuseables/customIcon'
-import { COLOR, TEXT_STYLE, hp, wp } from '../../enums/StyleGuide'
-import { En } from '../../locales/En'
-import { IMAGES } from '../../assets/images'
-import { SERVICES } from '../../assets/data/DummyData'
+import { StyleSheet, View } from 'react-native';
+import React from 'react';
+import { AppHeader, Label, Logo, Photo, Pressable, Scrollable } from '../../components';
+import { COLOR, TEXT_STYLE, hp, wp } from '../../enums/StyleGuide';
+import { En } from '../../locales/En';
+import { IMAGES } from '../../assets/images';
+import { SERVICES, SERVICES_OFFERS } from '../../assets/data/DummyData';
+import { SCREENS } from '../../enums/AppEnums';
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <AppHeader
         centerComp={<Logo />}
-        // rightComp={<CustomIcon family='FontAwesome5' name={"user-circle"} />}
         style={{ paddingHorizontal: wp(2) }}
       />
+      <Scrollable>
+        <Photo src={IMAGES.HomeBanner} style={styles.imageStyle} />
 
-      <Photo src={IMAGES.HomeBanner} style={styles.imageStyle} />
+        <Label style={styles.serviceOfferText}>{En.serviceWeOffer}</Label>
 
-      <Label style={styles.serviceOfferText}>{En.serviceWeOffer}</Label>
-      <View style={{ paddingHorizontal: wp(2) }}>
-        {SERVICES.map((item, index) => (
-          <Pressable
-            style={styles.serviceCards}
-            key={index}
-            animation="pulse" // Adding fadeInUp animation here
-            onPress={() => navigation.navigate(item?.route, { title: item?.text })}
-          >
-            <Label style={styles.cardText}>{item?.text}</Label>
-            <CustomIcon name={"chevron-forward"} family='Ionicons' size={hp(2.5)} color={COLOR.white} />
-          </Pressable>
-        ))}
-      </View>
+        <Scrollable horizontal containerStyle={styles.servicesOfferMainContainer}>
+          {SERVICES_OFFERS.map((item, index) => (
+            <Pressable
+              key={index}
+              style={styles.serviceOfferCard}
+              onPress={() =>
+                navigation.navigate(SCREENS.START_CASE_FILING, { serviceType: item })
+              }
+            >
+              <Label style={styles.offerServiceName}>{item?.text}</Label>
+            </Pressable>
+          ))}
+        </Scrollable>
+
+        <Label style={styles.serviceOfferText}>Quick Facts</Label>
+        <Scrollable horizontal containerStyle={styles.servicesOfferMainContainer}>
+          {SERVICES.map((item, index) => (
+            <Pressable
+              key={index}
+              style={styles.serviceOfferCard}
+              onPress={() =>
+                navigation.navigate(item?.route, { title: item?.text })
+              }
+            >
+              <Label style={styles.cardText}>{item?.text}</Label>
+            </Pressable>
+          ))}
+        </Scrollable>
+      </Scrollable>
     </View>
   );
-}
+};
 
 export default HomeScreen;
 
@@ -46,26 +62,36 @@ const styles = StyleSheet.create({
   },
   imageStyle: {
     height: hp(20),
-    marginVertical:hp(2),
+    marginVertical: hp(2),
   },
   serviceOfferText: {
-    alignSelf: 'center',
+    paddingLeft: wp(4),
     ...TEXT_STYLE.smallTitleBold,
-    borderBottomWidth: 1,
-    borderColor: COLOR.darkBlue,
-    marginBottom: hp(2),
   },
-  serviceCards: {
-    backgroundColor: COLOR.darkBlue,
-    marginVertical: hp(1),
-    paddingVertical: hp(2),
-    paddingHorizontal: wp(4),
-    borderRadius: hp(1.5),
+  servicesOfferMainContainer: {
+    flexGrow: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    paddingLeft: wp(4),
+    marginVertical: hp(2),
+  },
+  serviceOfferCard: {
+    width: wp(35),
+    height: hp(10),
+    borderWidth: 0.5,
+    marginRight: wp(2.5),
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    borderRadius: hp(2),
+    backgroundColor: COLOR.darkBlue,
+    paddingHorizontal: wp(1),
   },
   cardText: {
     color: COLOR.white,
     ...TEXT_STYLE.textSemiBold,
-  }
+  },
+  offerServiceName: {
+    textAlign: 'center',
+    ...TEXT_STYLE.textBold,
+    color: COLOR.white,
+  },
 });

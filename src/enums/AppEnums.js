@@ -43,7 +43,12 @@ export const KEYBOARD_TYPE = {
     ACCOUNT_TYPE:"AccountTypeScreen",
     NEW_APPOINTMENT:"NewAppointment",
     VIEW_PDF:"ViewPdfScreen",
-    EDIT_PROFILE:"EditProfileScreen"
+    EDIT_PROFILE:"EditProfileScreen",
+    START_CASE_FILING:"StartCaseFillingScreen",
+    CASEFILLING_CONFIRM:"ConfirmationScreen",
+    PAYMENT:"PaymentScreen",
+    DOCUMENTS_UPLOAD:"DocumentsUploadScreen",
+    CALENDER:"CalenderScreen"
 
     
   }
@@ -58,7 +63,8 @@ export const TABS = {
 
 export const FIREBASE_COLLECTIONS = {
   USERS:"users",
-  APPOINTMENTS:"appointments"
+  APPOINTMENTS:"appointments",
+  TRANSACTIONS_HISTORY:"transaction_history"
 }
 
 
@@ -68,4 +74,23 @@ export const FIREBASE_STORAGE = {
 
 export const STATUS = {
   PENDING:"pending",
+}
+
+
+
+export const CASE_TYPE={
+  INDIVIDUAL:"individual",
+  BUSINESS:"business"
+}
+
+
+export const STRIPE_PUBLISHKEY="pk_test_51QIa6CI8FUx9qxcaXssQ9CrbYdy3Pbn9TqFr53yCW62yJnfi6mfPUcXpnpUAzeLmNj3SkGML2iQjYIfrNplsw7Pn00PnziuHi5"
+
+
+
+export const PAYMENT_UTILS = {
+  NEW_CUSTOMER:"/create-customer",
+  NEW_CARD:"/add-newCard",
+  GET_CARDS:"/paymentMethods_get",
+  CREATE_CHARGE:"/create-charges"
 }

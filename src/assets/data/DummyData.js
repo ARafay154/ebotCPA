@@ -7,8 +7,17 @@ export const SERVICES = [
     { text: En.tax, route: SCREENS.TAX_HOME },
     { text: En.s4FinanceImplement, route: SCREENS.S4_HOME },
     { text: En.generals, route: SCREENS.GENERAL_SERVICE },
-    { text: En.pricingAppoints, route: SCREENS.GENERAL_PRICING },
+    // { text: En.pricingAppoints, route: SCREENS.GENERAL_PRICING },
 ];
+
+export const SERVICES_OFFERS = [
+   { text:"Tax Resolution" ,subText:"IRS Notice Review",price :"150",},
+   { text:"Tax Planning" ,subText:"Strategy Review",price :"500",},
+   { text:"Book Keeping & Accounting" ,subText:"P&L and BS Review",price :"150",},
+   { text:"Fractional CFO & Advisory" ,subText:"Analysis of Management Expectations",price :"500",},
+   { text:"SAP S4 Finance Projects" ,subText:"Projects Review",price :"3000",},
+    
+]
 
 export const BOTTOM_TAB = {
     [TABS.HOME]: { iconName: "home", family: "Ionicons", title: "Home", },
